@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WILD CODE GAMES · 野码游戏社区 — 筹备中</title>
+<meta name="description" content="野码 WILD CODE 游戏宇宙集结地。独立开发者荒野的小游戏社区，正在筹备中。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐎</text></svg>">
+<style>
+  :root{
+    --orange:#FF6A3D;
+    --orange-dim:rgba(255,106,61,.12);
+    --bg:#0B0B10;
+    --bg2:#12121A;
+    --line:rgba(255,255,255,.08);
+    --txt:#E8E8EE;
+    --dim:#8A8A99;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    overflow-x:hidden;
+  }
+  /* 背景网格 + 光晕 */
+  .bg-grid{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;
+    mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,#000 40%,transparent 100%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 40%,#000 40%,transparent 100%);
+  }
+  .glow{
+    position:fixed;z-index:0;pointer-events:none;border-radius:50%;filter:blur(90px);
+  }
+  .glow.g1{width:420px;height:420px;top:-120px;left:50%;transform:translateX(-50%);background:rgba(255,106,61,.14)}
+  .glow.g2{width:300px;height:300px;bottom:-80px;right:8%;background:rgba(255,106,61,.08)}
+
+  main{
+    position:relative;z-index:1;
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:48px 24px;text-align:center;
+  }
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:7px 16px;border:1px solid var(--orange-dim);border-radius:999px;
+    background:var(--orange-dim);color:var(--orange);
+    font-size:13px;letter-spacing:2px;font-weight:600;
+    margin-bottom:28px;
+  }
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  h1{
+    font-size:clamp(40px,9vw,84px);
+    font-weight:800;letter-spacing:2px;line-height:1.05;
+    background:linear-gradient(180deg,#fff 30%,var(--orange));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{
+    font-size:clamp(16px,3vw,22px);color:var(--dim);
+    margin-top:16px;letter-spacing:4px;
+  }
+  .soon{
+    margin-top:26px;
+    display:inline-block;padding:10px 26px;
+    border:1px dashed var(--orange);border-radius:8px;
+    color:var(--orange);font-size:15px;letter-spacing:3px;
+  }
+
+  .roster{
+    margin-top:44px;width:min(560px,100%);
+    text-align:left;
+  }
+  .roster-title{
+    font-size:13px;color:var(--dim);letter-spacing:3px;margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .roster-title::before,.roster-title::after{content:"";flex:1;height:1px;background:var(--line)}
+  .games{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;
+  }
+  .game{
+    padding:14px 16px;border:1px solid var(--line);border-radius:10px;
+    background:var(--bg2);transition:border-color .25s,transform .25s;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .game:hover{border-color:var(--orange);transform:translateY(-2px)}
+  .game .g-name{font-size:14px;font-weight:700;color:var(--txt)}
+  .game .g-tag{font-size:12px;color:var(--dim)}
+  .game .g-state{font-size:11px;color:var(--orange);letter-spacing:1px}
+
+  .links{
+    margin-top:52px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+  }
+  .link{
+    text-decoration:none;color:var(--txt);font-size:14px;
+    padding:10px 22px;border:1px solid var(--line);border-radius:8px;
+    transition:border-color .25s,color .25s,background .25s;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .link:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-dim)}
+  .link .arr{opacity:.6}
+
+  footer{
+    position:relative;z-index:1;
+    padding:20px;text-align:center;color:var(--dim);font-size:12px;letter-spacing:1px;
+  }
+  footer a{color:var(--dim);text-decoration:none}
+  footer a:hover{color:var(--orange)}
+
+  .horses{
+    margin-top:36px;display:flex;gap:14px;justify-content:center;align-items:flex-end;
+    filter:drop-shadow(0 6px 14px rgba(255,106,61,.15));
+  }
+  .horses img{width:56px;height:56px;object-fit:contain;animation:bob 3s ease-in-out infinite}
+  .horses img:nth-child(2){animation-delay:.4s}
+  .horses img:nth-child(3){animation-delay:.8s}
+  .horses img:nth-child(4){animation-delay:1.2s}
+  .horses img:nth-child(5){animation-delay:1.6s}
+  .horses img:nth-child(6){animation-delay:2s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<main>
+  <div class="badge"><span class="dot"></span>WILD CODE · GAMES HUB</div>
+  <h1>WILD CODE<br>GAMES</h1>
+  <p class="sub">野码游戏社区 · 游戏宇宙集结地</p>
+  <div class="soon">筹备中 · COMING SOON</div>
+
+  <div class="horses">
+    <img src="https://raw.githubusercontent.com/KBrown102/wildcode/main/assets/horses/lan.png" alt="蓝">
+    <img src="https://raw.githubusercontent.com/KBrown102/wildcode/main/assets/horses/yan.png" alt="岩">
+    <img src="https://raw.githubusercontent.com/KBrown102/wildcode/main/assets/horses/lv.png" alt="绿">
+    <img src="https://raw.githubusercontent.com/KBrown102/wildcode/main/assets/horses/shan.png" alt="闪">
+    <img src="https://raw.githubusercontent.com/KBrown102/wildcode/main/assets/horses/zong.png" alt="棕">
+  </div>
+
+  <div class="roster">
+    <div class="roster-title">正在集结的游戏</div>
+    <div class="games">
+      <div class="game"><div class="g-name">时空幸存者</div><div class="g-tag">Roguelite 生存</div><div class="g-state">即将入驻</div></div>
+      <div class="game"><div class="g-name">飞鸟之旅</div><div class="g-tag">三渲二飞行</div><div class="g-state">即将入驻</div></div>
+      <div class="game"><div class="g-name">无人机编队</div><div class="g-tag">表演编排器</div><div class="g-state">即将入驻</div></div>
+      <div class="game"><div class="g-name">烟花工坊</div><div class="g-tag">创意工具</div><div class="g-state">即将入驻</div></div>
+      <div class="game"><div class="g-name">拼豆图纸</div><div class="g-tag">像素量化</div><div class="g-state">即将入驻</div></div>
+      <div class="game"><div class="g-name">灵感图谱</div><div class="g-tag">神经图谱</div><div class="g-state">即将入驻</div></div>
+    </div>
+  </div>
+
+  <div class="links">
+    <a class="link" href="https://wildcode.cn/">← 荒野的个人站<span class="arr"></span></a>
+    <a class="link" href="https://github.com/KBrown102">GitHub ↗</a>
+  </div>
+</main>
+
+<footer>© <span id="yr"></span> 野码 WILD CODE · 独立开发者荒野 · 小游戏社区筹备中</footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
